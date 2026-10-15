@@ -28,7 +28,7 @@ jobs:
         run: |
           docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/gitops-app:${{ github.sha }} ./app
 
-      # 2. Trivy Security Scan (Add-on Tool)
+      # 2. Trivy Security Scan
       - name: Run Trivy Vulnerability Scanner
         uses: aquasecurity/trivy-action@master
         with:
