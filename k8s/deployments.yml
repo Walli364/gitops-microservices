@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
       - name: gitops-app
-        image: walli364/gitops-app:v1
+        image: walli364/gitops-app:98e7483db0b3e359f78e48e2e15ca40eb1abf5c6
         ports:
         - containerPort: 5000
         resources:
