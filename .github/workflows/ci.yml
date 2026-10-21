@@ -38,3 +38,13 @@ jobs:
       - name: Push Docker Image
         run: |
           docker push ${{ secrets.DOCKERHUB_USERNAME }}/gitops-app:${{ github.sha }}
+
+      - name: Update Image Tag in Rollout Manifest
+        run: |
+          IMAGE_TAG=${{ github.sha }}
+          sed -i "s|image: walli364/gitops-app:.*|image: walli364/gitops-app:${IMAGE_TAG}|g" k8s/rollout.yml
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          git add k8s/rollout.yml
+          git commit -m "chore(gitops): auto-update image to ${IMAGE_TAG} [skip ci]" || echo "No changes to commit"
+          git push origin main
